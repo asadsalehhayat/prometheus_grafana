@@ -1,8 +1,6 @@
 # prometheus_grafana
 
-```helm install prometheus prometheus-community/prometheus --namespace monitoring```
 
-```km get pods```
 
  ```ls```
 
@@ -109,7 +107,9 @@ spec:
   volumeName: grafana-pv
 
 ```
+```helm install prometheus prometheus-community/prometheus --namespace monitoring```
 
+```km get pods```
 
 km get pv
 km edit pv prometheus-pv
