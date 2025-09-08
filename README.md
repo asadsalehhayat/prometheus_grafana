@@ -64,6 +64,39 @@ spec:
   volumeName: prometheus-alertmanager-pv
 
 ```
+
+
+```
+cat grafana-pv.yaml 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: grafana-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/grafana   # directory on RHEL node
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeName: grafana-pv
+
+```
+
+
 k apply -f prometheus-pv.yaml 
  1097  km get pv
  1098  km edit pv prometheus-pv
