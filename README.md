@@ -6,8 +6,20 @@
 
  ```ls```
 
+sudo mkdir -p /mnt/data/prometheus-alertmanager
+sudo chmod 777 /mnt/data/prometheus-alertmanager
+
+sudo mkdir -p /mnt/data/prometheus
+sudo chmod 777 /mnt/data/prometheus
+
+sudo mkdir -p /mnt/data/grafana
+sudo chmod 777 /mnt/data/grafana
+
+
+
+cat prometheus-pv.yaml 
+
 ```
- cat prometheus-pv.yaml 
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -35,8 +47,10 @@ spec:
   volumeName: prometheus-pv   # bind PVC to PV explicitly
 ```
 
-```
+
 cat alertmanager-pv.yaml 
+
+```
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -65,9 +79,9 @@ spec:
 
 ```
 
+cat grafana-pv.yaml 
 
 ```
-cat grafana-pv.yaml 
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -97,9 +111,8 @@ spec:
 ```
 
 
-k apply -f prometheus-pv.yaml 
- 1097  km get pv
- 1098  km edit pv prometheus-pv
+km get pv
+km edit pv prometheus-pv
  1099  km get pv
  1100  km get pvc
  1101  km delete pvc prometheus-server
@@ -115,8 +128,7 @@ k apply -f prometheus-pv.yaml
  1111  k apply -f prometheus-pv.yaml 
  1112  km get pv
  1113  km get pvc
- 1114  sudo mkdir -p /mnt/data/prometheus-alertmanager
- 1115  sudo chmod 777 /mnt/data/prometheus-alertmanager
+ 1114  
  1116  sudo vi alertmanager-pv.yaml
  1117  km get pv
  1118  km get pvc
