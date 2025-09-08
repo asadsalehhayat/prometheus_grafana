@@ -1,8 +1,9 @@
 # prometheus_grafana
 
 ```helm install prometheus prometheus-community/prometheus --namespace monitoring```
- 1094  km get pods
- 1095  ls
+
+```km get pods```
+ ```ls```
  1096  k apply -f prometheus-pv.yaml 
  1097  km get pv
  1098  km edit pv prometheus-pv
