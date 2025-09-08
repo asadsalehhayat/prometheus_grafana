@@ -3,8 +3,39 @@
 ```helm install prometheus prometheus-community/prometheus --namespace monitoring```
 
 ```km get pods```
+
  ```ls```
- 1096  k apply -f prometheus-pv.yaml 
+
+```
+ cat prometheus-pv.yaml 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/prometheus   # <-- directory on your RHEL node
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-server
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: prometheus-pv   # bind PVC to PV explicitly
+```
+ 
+k apply -f prometheus-pv.yaml 
  1097  km get pv
  1098  km edit pv prometheus-pv
  1099  km get pv
