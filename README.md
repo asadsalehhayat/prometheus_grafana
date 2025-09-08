@@ -34,7 +34,36 @@ spec:
       storage: 5Gi
   volumeName: prometheus-pv   # bind PVC to PV explicitly
 ```
- 
+
+```
+cat alertmanager-pv.yaml 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-alertmanager-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/prometheus-alertmanager
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: storage-prometheus-alertmanager-0
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeName: prometheus-alertmanager-pv
+
+```
 k apply -f prometheus-pv.yaml 
  1097  km get pv
  1098  km edit pv prometheus-pv
